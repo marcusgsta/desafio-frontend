@@ -58,7 +58,6 @@ interface WeatherCodeEntry {
   night: DayNightForecast;
 }
 
-// Perfect for your numeric string keys ("0", "1", "45", "99", etc.)
 export type WeatherCodes = Record<string, WeatherCodeEntry>;
 
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Cities } from "./Cities";
 import { fetchWeatherApi } from "openmeteo";
-import { GetCityFromLongLat } from "./GetCityFromLongLat";
 import { SearchField } from "./SearchField";
 import type { WeatherData, WeatherLocation } from "./types";
 import { weatherCodes } from "./weatherCodes";
@@ -62,20 +61,20 @@ export function GetWeather() {
                         { length: (Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval() },
                         (_, i) => new Date((Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) * 1000)
                     ),
-                    temperature_2m: hourly.variables(0)!.valuesArray(),
-                    visibility: hourly.variables(1)!.valuesArray(),
-                    weather_code: hourly.variables(2)!.valuesArray(),
-                    cloud_cover: hourly.variables(3)!.valuesArray(),
-                    rain: hourly.variables(4)!.valuesArray(),
+                    temperature_2m: Array.from(hourly.variables(0)?.valuesArray() || []),
+                    visibility: Array.from(hourly.variables(1)?.valuesArray() || []),
+                    weather_code: Array.from(hourly.variables(2)?.valuesArray() || []),
+                    cloud_cover: Array.from(hourly.variables(3)?.valuesArray() || []),
+                    rain: Array.from(hourly.variables(4)?.valuesArray() || []),
                 },
                 daily: {
                     time: Array.from(
                         { length: (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval() },
                         (_, i) => new Date((Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) * 1000)
                     ),
-                    rain_sum: daily.variables(0)!.valuesArray(),
-                    temperature_2m_max: daily.variables(1)!.valuesArray(),
-                    temperature_2m_min: daily.variables(2)!.valuesArray(),
+                    rain_sum: Array.from(daily.variables(0)?.valuesArray() || []),
+                    temperature_2m_max: Array.from(daily.variables(1)!.valuesArray() || []),
+                    temperature_2m_min: Array.from(daily.variables(2)?.valuesArray() || []),
                 },
             };
 
@@ -86,6 +85,7 @@ export function GetWeather() {
 
 
     function searchForLocation(city: string) {
+
 
         if (!city) return;
         setLoading(true)
@@ -107,27 +107,7 @@ export function GetWeather() {
     }
 
 
-    function CityCard({ name, min = 3, max = 7 }: { name: string, min: number, max: number }) {
-
-        const padZero = ((hours: string) => {
-            if (hours.length < 2) {
-                return `0${hours}`
-            }
-            return hours;
-        })
-
-        const [currentTemp, setCurrentTemp] = useState<string>('');
-        const [currentTime, setCurrentTime] = useState<string>('');
-
-        // const today_ms = new Date();
-        // const todayISO = today_ms.toISOString() // 2025-12-12T10:36:57.418Z
-        // const today = today_ms.toLocaleDateString() // 2025-12-12
-        // const today = today_ms.toLocaleTimeString() // 11:38:37
-        // const currentHour = today + "T" + padZero(today_ms.getHours().toString())
-        // const hours: any = {}
-        // console.log("currentHour", currentHour)
-
-        // hours[today] = [];
+    function CityCard({ name }: { name: string }) {
 
         let icon;
         const code = weatherData?.current?.weather_code.toString();
@@ -157,9 +137,9 @@ export function GetWeather() {
                     <p><span className="arrow">↓</span> {Math.round(weatherData?.daily?.temperature_2m_min[0] ?? 0)}° 
                         &nbsp;&nbsp;<span className="arrow">↑</span> {Math.round(weatherData?.daily?.temperature_2m_max[0] ?? 0)}°
                         
-                        Sensação: {sensation} 
+                        Känns som: {sensation}° 
                         </p>
-                        <p>Vento {windspeed} &nbsp;&nbsp; Humidade {humidity}</p>
+                        <p>Vind {windspeed} &nbsp;&nbsp; Fuktighet {humidity}</p>
                 </div>
                 <hr />
 
@@ -168,20 +148,17 @@ export function GetWeather() {
     }
 
 
-    const min = 3;
-    const max = 9;
-
     return (
         <>
             <h1>
-                Previsão do tempo
+                Vädret
             </h1>
-            {location?.name && <CityCard name={location?.name} min={min} max={max} />}
+            {location?.name && <CityCard name={location?.name} />}
 
             <SearchField value={searchText} setSearchText={setSearchText}
                 searchForText={searchForLocation} />
-            {/* <GetCityFromLongLat city={searchText} /> */}
-            <Cities />
+            
+            {/* <Cities /> */}
         </>
     )
 }
