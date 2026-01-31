@@ -1,19 +1,45 @@
+
+* {
+  box-sizing: border-box;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+html {
+  --primary-font-color: #514e4e;
+}
+
 #root {
+  font-size: 16px;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  color: var(--primary-font-color);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 0 auto;
 }
 
 body {
   background-image: linear-gradient(#EE7D33, #F6B933);
   height: 100vh;
-
-  
 }
 
 h1, hr {
   color: #fff;
+  text-align: center;
+}
+
+h2 {
+  margin: 0.4rem 0 0.4rem 0;
+  font-size: 2rem;
+  
 }
 
 hr {
@@ -24,11 +50,17 @@ hr {
   border-radius: 10%;
 }
 
-.date-card {
+hr.divider {
+  background-color: #EE7D33;
+  width: 100%;
+}
+
+.city-card {
   background-color: #fff;
   width: 400px;
   height: 250px;
   margin: 0 auto;
+  padding: 1rem 2rem 1rem 2rem;
 }
 
 .cities {
@@ -55,4 +87,31 @@ hr {
 
 p {
   margin: 0;
+}
+
+.search-field {
+  margin: 1rem 0 3rem 0;
+  width: 100%;
+}
+#search-input {
+  width: 100%;
+  padding: 0.3rem;
+  font-size: 1.2rem;
+  color: #796f6f;
+}
+
+.address {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.weather-details {
+  display: flex;
+  flex-wrap: wrap;
+  width: 260px;
+  column-gap: 0;
+  row-gap: 0.8rem;
+}
+.weather-details div {
+  width: 120px;
 }

@@ -14,6 +14,7 @@ export function SearchField({ value, setSearchText, searchForText }:
         >
             <input type="text" placeholder={"Enter a city..."}
                 value={value}
+                id="search-input"
                 onChange={(e) => setSearchText(e.target.value)}
             ></input>
         </form>
@@ -21,7 +22,7 @@ export function SearchField({ value, setSearchText, searchForText }:
 
     return (
         <>
-            <div className="searchField">
+            <div className="search-field">
 
                 {textField}
 

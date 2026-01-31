@@ -19,7 +19,7 @@ export function GetWeather() {
         daily: ["rain_sum", "temperature_2m_max", "temperature_2m_min"],
         hourly: ["temperature_2m", "visibility", "weather_code", "cloud_cover", "rain"],
         current: ["rain", "weather_code", "cloud_cover", "precipitation", "showers", "snowfall", "temperature_2m", "apparent_temperature", "wind_speed_10m",
-        "relative_humidity_2m"
+            "relative_humidity_2m"
         ],
         timezone: "auto",
         wind_speed_unit: "ms",
@@ -114,7 +114,7 @@ export function GetWeather() {
         if (code && code in weatherCodes) {
             icon = weatherCodes[code]
         }
-        
+
         let sensation = weatherData?.current.apparent_temperature;
         sensation = Math.round(sensation ?? 0);
         let windspeed = weatherData?.current.wind_speed_10m;
@@ -125,40 +125,63 @@ export function GetWeather() {
         const isDay = true;
         return (
             <>
-                <div className="date-card">
-                    <span>{`${location?.admin2}, ${location?.country_code} - ${location?.country}`}</span>
-                    <h2>{name}</h2>
-                    <h3>{Math.round(weatherData?.current.temperature_2m ?? 0)}°C 
+                <div className="city-card">
+                    <span className="address">{`${location?.admin2}, ${location?.country_code} - ${location?.country}`}</span>
+
+                    <h2>{Math.round(weatherData?.current.temperature_2m ?? 0)}°C
                         &nbsp; {
                             isDay ? icon?.day.description : icon?.night.description
                         }
 
-                    </h3>
-                    <p><span className="arrow">↓</span> {Math.round(weatherData?.daily?.temperature_2m_min[0] ?? 0)}° 
-                        &nbsp;&nbsp;<span className="arrow">↑</span> {Math.round(weatherData?.daily?.temperature_2m_max[0] ?? 0)}°
-                        
-                        Känns som: {sensation}° 
-                        </p>
-                        <p>Vind {windspeed} &nbsp;&nbsp; Fuktighet {humidity}</p>
-                </div>
-                <hr />
+                    </h2>
+                    <div className="weather-details">
+                        <div>
+                            <span className="arrow">↓</span>
+                            <span className="bold">{Math.round(weatherData?.daily?.temperature_2m_min[0] ?? 0)}°
+                            </span>
+                            &nbsp;&nbsp;
+                            <span className="arrow">↑</span>
+                            <span className="bold">
+                                {Math.round(weatherData?.daily?.temperature_2m_max[0] ?? 0)}°C
+                            </span>
+                        </div>
+                        <div>
+                            Känns som: <span className="bold">{sensation}°</span>
+                        </div>
+                        <div>
+                            Vind <span className="bold">{windspeed} m/s</span>
+                        </div>
+                        <div>
+                            Fuktighet<span className="bold"> {humidity}%</span>
+                        </div>
 
-            </>
-        )
+                        
+
+                    </div>
+                    <hr className="divider" />
+                </div>
+
+                </>
+                )
     }
 
 
-    return (
-        <>
-            <h1>
-                Vädret
-            </h1>
-            {location?.name && <CityCard name={location?.name} />}
+                return (
+                <>
 
-            <SearchField value={searchText} setSearchText={setSearchText}
-                searchForText={searchForLocation} />
-            
-            {/* <Cities /> */}
-        </>
-    )
+                    <h1>
+                        Väder
+                    </h1>
+                    <div className="wrapper">
+                        {location?.name && <CityCard name={location?.name} />}
+
+                        <SearchField value={searchText} setSearchText={setSearchText}
+                            searchForText={searchForLocation} />
+                        
+
+                        {/* <Cities /> */}
+                    </div>
+                    <hr />
+                </>
+                )
 }
