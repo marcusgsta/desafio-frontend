@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Cities } from "./Cities";
+
 import { fetchWeatherApi } from "openmeteo";
 import { SearchField } from "./SearchField";
 import type { WeatherData, WeatherLocation } from "./types";

@@ -1,7 +1,7 @@
 export async function getCityRequest() {
     
         const url = "https://geocoding-api.open-meteo.com/v1/search?name=Rio de Janeiro&count=1&language=en&format=json";
-        let location = {};
+        
 
         try {
             const response = await fetch(url)
