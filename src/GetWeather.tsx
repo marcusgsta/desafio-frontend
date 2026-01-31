@@ -107,7 +107,7 @@ export function GetWeather() {
     }
 
 
-    function CityCard({ name }: { name: string }) {
+    function CityCard() {
 
         let icon;
         const code = weatherData?.current?.weather_code.toString();
@@ -173,7 +173,7 @@ export function GetWeather() {
                         Väder
                     </h1>
                     <div className="wrapper">
-                        {location?.name && <CityCard name={location?.name} />}
+                        {location?.name && <CityCard />}
 
                         <SearchField value={searchText} setSearchText={setSearchText}
                             searchForText={searchForLocation} />
