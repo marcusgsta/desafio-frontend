@@ -9,6 +9,7 @@
 
 html {
   --primary-font-color: #514e4e;
+  --orange: #EE7D33;
 }
 
 #root {
@@ -27,13 +28,17 @@ html {
 }
 
 body {
-  background-image: linear-gradient(#EE7D33, #F6B933);
+  background-image: linear-gradient(var(--orange), #F6B933);
   height: 100vh;
 }
 
 h1, hr {
   color: #fff;
   text-align: center;
+}
+
+h1 {
+  font-size: 3rem;;
 }
 
 h2 {
@@ -51,14 +56,13 @@ hr {
 }
 
 hr.divider {
-  background-color: #EE7D33;
+  background-color: var(--orange);
   width: 100%;
 }
 
 .city-card {
   background-color: #fff;
   width: 400px;
-  height: 250px;
   margin: 0 auto;
   padding: 1rem 2rem 1rem 2rem;
 }
@@ -81,7 +85,7 @@ hr.divider {
 }
 
 .arrow {
-  color: #EE7D33;
+  color: var(--orange);
   font-weight: bold;
 }
 
@@ -113,5 +117,35 @@ p {
   row-gap: 0.8rem;
 }
 .weather-details div {
-  width: 120px;
+  width: 130px;
+}
+.week-wrapper {
+  
+}
+
+ul.weather-days {
+  display: flex;
+  gap: 0.6rem;
+  list-style: none;
+  padding: 0;
+}
+
+.weather-days ul {
+  list-style: none;
+}
+.weather-days li {
+  flex: 0 0 auto;
+  font-weight: bold;
+  font-size: 0.7rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.weekday {
+  text-transform: capitalize;
+}
+
+.weather-days .minmax {
+  font-size:0.7rem;
+  color: var(--orange);
 }

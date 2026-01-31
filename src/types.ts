@@ -48,6 +48,13 @@ export interface WeatherData {
   };
 }
 
+export interface ForecastData {
+  time: Date[] | undefined;
+  min: number[] | undefined;
+  max: number[] | undefined;
+}
+
+
 interface DayNightForecast {
   description: string;
   image: string;

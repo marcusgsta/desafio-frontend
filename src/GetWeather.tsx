@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 
 import { fetchWeatherApi } from "openmeteo";
 import { SearchField } from "./SearchField";
-import type { WeatherData, WeatherLocation } from "./types";
+import type { ForecastData, WeatherData, WeatherLocation } from "./types";
 import { weatherCodes } from "./weatherCodes";
+import { Forecast } from "./Forecast";
 
 export function GetWeather() {
 
@@ -106,6 +107,14 @@ export function GetWeather() {
 
     }
 
+    // create forecast array 
+    const forecast : ForecastData= {
+        time: weatherData?.daily.time.slice(1,6),
+        min: weatherData?.daily.temperature_2m_min.slice(1,6),
+        max: weatherData?.daily.temperature_2m_max.slice(1,6),
+    }
+    
+
 
     function CityCard() {
 
@@ -120,7 +129,7 @@ export function GetWeather() {
         let windspeed = weatherData?.current.wind_speed_10m;
         windspeed = Math.round(windspeed ?? 0)
         let humidity = weatherData?.current.relative_humidity_2m;
-        console.log(weatherData)
+        console.log("long", location?.longitude, "lat", location?.latitude, weatherData)
 
         const isDay = true;
         return (
@@ -159,6 +168,9 @@ export function GetWeather() {
 
                     </div>
                     <hr className="divider" />
+
+                <Forecast forecast={forecast}/>
+
                 </div>
 
                 </>
