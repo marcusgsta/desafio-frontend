@@ -67,4 +67,12 @@ interface WeatherCodeEntry {
 
 export type WeatherCodes = Record<string, WeatherCodeEntry>;
 
-
+export interface WeatherApiParams {
+  latitude?: number;
+  longitude?: number;
+  daily: string[];
+  hourly: string[];
+  current: string[];
+  timezone: string;
+  wind_speed_unit: string;
+}

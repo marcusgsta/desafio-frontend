@@ -2,12 +2,13 @@ import type { ForecastData } from "./types";
 
 
 
-export function Forecast({forecast}: {forecast: ForecastData}) {
+export function Forecast({forecast}: 
+    {forecast?: ForecastData}) {
 
     const Week = () => (
         <div className="week-wrapper">
             <ul className="weather-days">
-            {
+            {forecast &&
                 forecast.time?.map((day, index) => (
                     <li key={index}>
                         <span className="weekday">
